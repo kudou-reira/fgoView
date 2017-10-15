@@ -1,0 +1,8 @@
+.full { min-height: 100%; height:auto;}
+
+.boxBorder {
+	border:3px solid black;
+	margin auto;
+	text-align: center;
+}
+
