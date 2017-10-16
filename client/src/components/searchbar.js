@@ -1,22 +1,23 @@
 import React, { Component } from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
+import Select from 'react-select';
+import 'react-select/dist/react-select.css';
+
 import { connect } from 'react-redux';
 import * as actions from '../actions';
+
 
 class SearchBar extends Component {
 
 	constructor() {
 		super();
 		this.state = {
-			widthWindow: '0',
-			heightWindow: '0',
-			width: 0,
-			height: 0,
-			x: 0,
-			y: 0
+			search: '',
+			placeholder: ''
 		}
 
 		this.buttonClicked = this.buttonClicked.bind(this);
+		this.onInputChange = this.onInputChange.bind(this);
 	}
 
 	buttonClicked() {
@@ -24,21 +25,45 @@ class SearchBar extends Component {
 		this.props.searchBar("fgo");
 	}
 
+	onInputChange(val){
+		this.setState({
+			search: val.value
+		}, () => {
+			console.log("input value is", this.state.search)
+		});
+	}
+
+				// <div className="searchbar">
+				// 	<input
+				// 		type="text" 
+				// 		className="input" 
+				// 		onChange={this.onInputChange.bind(this)}
+				// 		value={this.state.search}
+				// 	>
+				// 	</input>
+				// </div>
+
+
 	renderSearchBar() {
-		const style = {
-		    marginTop: 6,
-		    marginBottom: 6,
-		    marginLeft: 13,
-		    marginRight: 13
-		};
+		// on component mount, do the fetching and searching and pass in the json with all the names of CEs and servants
+		// use regex to narrow down the choices and display them as results in the dropdown
+    	var options = [
+				{value: 12, label: '12 results per page'},
+				{value: 16, label: '16 results per page'},
+				{value: 20, label: '20 results per page'}
+			  ];
+
 
 		return(
 			<div>
-	    		<RaisedButton 
-	    			label="default"
-	    			style={style}
-	    			onClick={this.buttonClicked}
-	    		/>
+				<div className="bind">
+	    			<Select
+	    				name="form-field-name"
+	    				placeholder={this.state.placeholder}
+	    				options={options}
+	    				onChange={this.onInputChange}
+	    			/>
+	    		</div>
 	    	</div>
 		);
 	}
@@ -57,16 +82,24 @@ class SearchBar extends Component {
 
 	render(){
 		{console.log("this is props search value", this.props.search.value)}
+
+		const style = {
+		    marginTop: 6,
+		    marginBottom: 6,
+		    marginLeft: 13,
+		    marginRight: 13
+		};
+
 		return(
-			<div>
+			<div className="boxBorder">
 				this is SearchBar
 				{this.renderSearchBar()}
+				<RaisedButton 
+	    			label="default"
+	    			style={style}
+	    			onClick={this.buttonClicked}
+	    		/>
 				{this.renderSearchProps()}
-
-				<div className="boxBorder">
-					<img src='https://d3ieicw58ybon5.cloudfront.net/full/u/06776b146a624e318df43008fe516cd1.jpg' />
-					001222222222222222u9e21098329018e092
-				</div>
 			</div>
 		);
 	}

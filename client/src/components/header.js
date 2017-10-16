@@ -11,9 +11,6 @@ import {blueGrey900} from 'material-ui/styles/colors';
 import Google from 'material-ui-community-icons/icons/google';
 import Facebook from 'material-ui-community-icons/icons/facebook';
 import Twitter from 'material-ui-community-icons/icons/twitter';
-import FaGoogle from 'react-icons/lib/fa/google';
-import FaFacebook from 'react-icons/lib/fa/facebook';
-import FaTwitter from 'react-icons/lib/fa/twitter';
 
 class Header extends Component {
 
