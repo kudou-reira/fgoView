@@ -47,11 +47,45 @@ class SearchBar extends Component {
 	renderSearchBar() {
 		// on component mount, do the fetching and searching and pass in the json with all the names of CEs and servants
 		// use regex to narrow down the choices and display them as results in the dropdown
+
+		var tempServants = [];
     	var options = [
-				{value: 12, label: '12 results per page'},
-				{value: 16, label: '16 results per page'},
-				{value: 20, label: '20 results per page'}
-			  ];
+			{value: 12, label: '12 results per page'},
+			{value: 16, label: '16 results per page'},
+			{value: 20, label: '20 results per page'}
+		];
+
+
+		if(this.props.search.results !== null) {
+			tempServants = this.props.search.results.Results.servants.map((servant) => {
+				return(
+					{
+						value: servant.pageLink, 
+						label:
+							<div className="searchContainer">
+								<div className="equalHMWrap eqWrap">
+									<div className="equalHM">
+										<img src={servant.icon}></img>
+									</div>
+									<div className="equalMid">
+										{servant.engName} <br />
+										{servant.jpName}
+									</div>
+									<div className="equalHM">
+										<div className="vert">
+											{servant.rarity}
+										</div>
+									</div>
+								</div>
+							</div>
+					}
+				)
+			})
+
+			console.log(tempServants);
+
+			options = tempServants
+		}
 
 
 		return(
@@ -69,7 +103,7 @@ class SearchBar extends Component {
 	}
 
 	renderSearchProps() {
-		if(this.props.search.value !== null) {
+		if(this.props.search.results !== null) {
 			return(
 				<div>
 					Your returned props value from go API is valid.
@@ -81,7 +115,7 @@ class SearchBar extends Component {
 	//how to center within the rnd component
 
 	render(){
-		{console.log("this is props search value", this.props.search.value)}
+		{console.log("this is props search value", this.props.search.results)}
 
 		const style = {
 		    marginTop: 6,
